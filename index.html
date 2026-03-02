@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather app</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+</head>
+<body>
+
+<div class="relative min-h-screen w-full bg-cover bg-center bg-no-repeat">
+  
+
+  <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, #1a1a1a 0%, #000000 100%)"></div>
+  
+  <div class="relative z-10 min-h-screen  ">
+
+    <div class="flex justify-center text-white gap-6">
+     <input type="text" class="h-10 px-4 border rounded-lg shadow-md outline-none focus:ring-2 focus:ring-blue-500 mt-10" placeholder="📍Location.....">
+     <p class="mt-12">friday</p>
+    </div>
+
+<div class="mt-20 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 m-10">
+    
+    <div class=" text-white p-6">
+        <h1 class="text-[140px]">16c</h1>
+       <p class="text-[40px] font-light mt-[-40px]">Storm with Rain</p>
+       <div class="flex gap-20 mt-20">
+        <div>
+            <p>wind</p>
+            <p>2.4km/h</p>
+        </div>
+        <div>
+            <p>humidity</p>
+            <p>70%</p>
+        </div>
+       </div>
+    </div>
+
+    <div class=" text-white p-6">
+        <img src="./images/sunny.png" class="w-100%" alt="">
+    </div>
+
+    <div class="bg-gray-800 text-white p-6">
+        <h1>Third</h1>
+    </div>
+
+</div>
+   
+  </div>
+
+</div>
+
+
+</body>
+</html>
