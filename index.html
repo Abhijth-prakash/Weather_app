@@ -9,21 +9,30 @@
 </head>
 <body>
 
+
+<!-- -------- main div background------- -->
 <div class="relative min-h-screen w-full bg-cover bg-center bg-no-repeat">
   
-
+<!-- ---------graident------------ -->
   <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, #1a1a1a 0%, #000000 100%)"></div>
   
+
+<!-- -------forces every other div relative to background---------  -->
   <div class="relative z-10 min-h-screen  ">
 
+
+<!-- -----------location search -------- -->
     <div class="flex justify-center text-white gap-6">
      <input type="text" class="h-10 px-4 border rounded-lg shadow-md outline-none focus:ring-2 focus:ring-blue-500 mt-10" placeholder="📍Location.....">
      <p class="mt-12">friday</p>
     </div>
 
+<!-- -----------the main div of three---------- -->
 <div class="mt-20 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 m-10">
+
     
-    <div class=" text-white p-6">
+<!-- -----------left side writings----------     -->
+    <div class=" text-white p-6 ml-[100px]">
         <h1 class="text-[140px]">16c</h1>
        <p class="text-[40px] font-light mt-[-40px]">Storm with Rain</p>
        <div class="flex gap-20 mt-20">
@@ -38,17 +47,56 @@
        </div>
     </div>
 
+<!-- ----------weather image------------- -->
     <div class=" text-white p-6">
         <img src="./images/sunny.png" class="w-100%" alt="">
     </div>
 
-    <div class="bg-gray-800 text-white p-6">
-        <h1>Third</h1>
-    </div>
+<!-- ----------showing weather of days---------- -->
+    <div class="ml-[30px]" >
 
-</div>
+        <!-- ----------table background----------- -->
+            <div class="h-[400px] w-[300px] rounded-2xl p-12  bg-[radial-gradient(ellipse_at_center,_#2a2a2a_0%,_#0a0a0a_100%)] shadow-2xl border border-white/10">
+                       
+                    
+                 <!-- -----------content div--------------       -->
+                       <div class="flex text-white gap-8">
+                        <i class="fa-solid fa-cloud"></i>
+                        <p class="text-2xl">Monday <br>
+                              <span class="inline-block text-sm font-thin -translate-y-[12px] opacity-60">good day</span>
+                        <p>180</p>
+
+                       </div>
+
+                       <!-- -----------content divs---------- -->
+
+                       <div class="flex text-white gap-8">
+                        <i class="fa-solid fa-cloud"></i>
+                        <p class="text-2xl">Tuesday <br>
+                              <span class="inline-block text-sm font-thin -translate-y-[12px] opacity-60">good day</span>
+                        <p>180</p>
+
+                       </div>
+
+                       <!-- -----------content divs---------- -->
+
+                       <div class="flex text-white gap-8">
+                        <i class="fa-solid fa-cloud"></i>
+                        <p class="text-2xl">Wednesday <br>
+                              <span class="inline-block text-sm font-thin -translate-y-[12px] opacity-60">good day</span>
+                        <p>180</p>
+
+                     </div>
+                 </div>
+
+
+            
+             </div>
+
+             
+        </div>
    
-  </div>
+     </div>
 
 </div>
 
