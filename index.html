@@ -22,9 +22,13 @@
 
 
 <!-- -----------location search -------- -->
-    <div class="flex justify-center text-white gap-6">
-     <input type="text" class="h-10 px-4 border rounded-lg shadow-md outline-none focus:ring-2 focus:ring-blue-500 mt-10" placeholder="📍Location.....">
-     <p class="mt-12">friday</p>
+       <div  class="flex justify-center text-black gap-3">
+     <input id="city" type="text" class="h-10 px-4 border rounded-lg shadow-md outline-none focus:ring-2 focus:ring-blue-500 mt-10" placeholder="📍Location.....">
+     <button id="btn" type="submit"
+  class="h-10 px-4 border rounded-lg shadow-md outline-none focus:ring-2 text-white focus:ring-blue-500 mt-10 flex items-center justify-center">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+     <p id="place" class="mt-12 text-white">friday</p>
     </div>
 
 <!-- -----------the main div of three---------- -->
@@ -33,16 +37,16 @@
     
 <!-- -----------left side writings----------     -->
     <div class=" text-white p-6 ml-[100px]">
-        <h1 class="text-[140px]">16c</h1>
-       <p class="text-[40px] font-light mt-[-40px]">Storm with Rain</p>
+        <h1 id="temp" class="text-[130px]"> 16<span class="text-3xl align-super">°C</span></h1>
+       <p  id="condition" class="text-[40px] font-light mt-[-40px]">Storm with Rain</p>
        <div class="flex gap-20 mt-20">
         <div>
             <p>wind</p>
-            <p>2.4km/h</p>
+            <p id="wind">2.4km/h</p>
         </div>
         <div>
             <p>humidity</p>
-            <p>70%</p>
+            <p id="humidity">70%</p>
         </div>
        </div>
     </div>
@@ -99,6 +103,12 @@
      </div>
 
 </div>
+
+
+
+<script src="./script.js"></script>
+
+
 
 
 </body>
