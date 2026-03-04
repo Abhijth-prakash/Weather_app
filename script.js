@@ -10,6 +10,13 @@ const img = document.getElementById("img")
 const apiKey = "4b4f884d109c4d7789060824260303"; 
 const today = document.getElementById("today")
 const todaycondtion = document.getElementById("todaycondtion")
+const todayhumidiy = document.getElementById("todayhumidiy")
+const day2 = document.getElementById("day2")
+const day2condtion = document.getElementById("day2condtion")
+const day2humidity = document.getElementById("day2humidity")
+const day3 = document.getElementById("day3")
+const day3condition = document.getElementById("day3condition")
+const day3humidity = document.getElementById("day3humidity")
 
 
 //search funtion
@@ -17,12 +24,13 @@ btn.onclick = async function() {
 
   const city = cityInput.value.trim()
 
-  const response = await fetch(
-    "https://api.weatherapi.com/v1/current.json?key=" + apiKey + "&q=" + city
-  );
+const response = await fetch(
+  "https://api.weatherapi.com/v1/forecast.json?key=" + apiKey + "&q=" + city + "&days=3"
+);
+
+
 
   const data = await response.json();
-  console.log(data);
   place.textContent = data.location.name
   temp.innerHTML = data.current.temp_c + '<span class="text-3xl align-super">°C</span>';
   condition.textContent = data.current.condition.text;
@@ -56,6 +64,7 @@ else {
     img.src = "./images/sunny.png"
 }
 
+//today's
 const date = data.location.localtime.split(" ")[0]; 
 const day = new Date(date).toLocaleDateString("en-US", {
   weekday: "long"
@@ -63,5 +72,44 @@ const day = new Date(date).toLocaleDateString("en-US", {
 
 today.firstChild.textContent = day
 todaycondtion.textContent = data.current.condition.text;
+todayhumidiy.innerHTML = `${data.current.humidity}<span class="text-sm ">%</span>`;
+
+
+//tommorows 
+const tomorrow = data.forecast.forecastday[1];
+const nextday = new Date(tomorrow.date).toLocaleDateString("en-US", {
+  weekday: "long"
+});
+
+day2.firstChild.textContent =nextday;
+day2condtion.textContent = tomorrow.day.condition.text;
+day2humidity.innerHTML = `${tomorrow.day.avghumidity}<span class="text-sm ">%</span>`;
+
+
+//day after tommorow
+const dayaftm = data.forecast.forecastday[2];
+console.log(dayaftm)
+
+const thirdday = new Date(dayaftm.date).toLocaleDateString("en-US", {
+  weekday: "long"
+});
+
+day3.firstChild.textContent = thirdday;
+day3condition.textContent = dayaftm.day.condition.text;
+day3humidity.innerHTML = `${dayaftm.day.avghumidity}<span class="text-sm ">%</span>`;
   
+};
+
+
+//automatically searches users location info by browser methods
+window.onload = function() {
+  navigator.geolocation.getCurrentPosition(async function(position) {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    const query = lat + "," + lon;
+
+    cityInput.value = query;
+    btn.click();
+    cityInput.value = ""; 
+  });
 };
