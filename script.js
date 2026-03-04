@@ -23,6 +23,7 @@ const day3humidity = document.getElementById("day3humidity")
 btn.onclick = async function() {
 
   const city = cityInput.value.trim()
+  
 
 const response = await fetch(
   "https://api.weatherapi.com/v1/forecast.json?key=" + apiKey + "&q=" + city + "&days=3"
@@ -31,6 +32,11 @@ const response = await fetch(
 
 
   const data = await response.json();
+
+
+  //saving city name in local storage
+
+  localStorage.setItem("lastCity", data.location.name);
   place.textContent = data.location.name
   temp.innerHTML = data.current.temp_c + '<span class="text-3xl align-super">°C</span>';
   condition.textContent = data.current.condition.text;
@@ -103,13 +109,19 @@ day3humidity.innerHTML = `${dayaftm.day.avghumidity}<span class="text-sm ">%</sp
 
 //automatically searches users location info by browser methods
 window.onload = function() {
-  navigator.geolocation.getCurrentPosition(async function(position) {
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
-    const query = lat + "," + lon;
+  const savedCity = localStorage.getItem("lastCity");
 
-    cityInput.value = query;
+  if (savedCity) {
+    cityInput.value = savedCity;
     btn.click();
-    cityInput.value = ""; 
-  });
+    cityInput.value = "";
+  } else {
+    navigator.geolocation.getCurrentPosition(async function(position) {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      cityInput.value = lat + "," + lon;
+      btn.click();
+      cityInput.value = "";
+    });
+  }
 };
