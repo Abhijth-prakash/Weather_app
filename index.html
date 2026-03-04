@@ -3,113 +3,173 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Weather app</title>
+  <title>Weather App</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Outfit', sans-serif; }
+
+    body { background: #050510; }
+
+    .glass {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .glow { text-shadow: 0 0 80px rgba(120,180,255,0.4); }
+
+    .forecast-row {
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      transition: background 0.2s;
+    }
+    .forecast-row:last-child { border-bottom: none; }
+    .forecast-row:hover { background: rgba(255,255,255,0.04); }
+
+    input::placeholder { color: rgba(255,255,255,0.3); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.6s ease forwards; }
+    .delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .delay-3 { animation-delay: 0.3s; opacity: 0; }
+
+  </style>
 </head>
-<body>
+<body class="min-h-screen text-white">
 
+  <!-- background blobs -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div style="width:600px;height:600px;background:radial-gradient(circle,rgba(56,100,220,0.15),transparent 70%);top:-100px;left:-100px;" class="absolute rounded-full"></div>
+    <div style="width:500px;height:500px;background:radial-gradient(circle,rgba(100,50,200,0.1),transparent 70%);bottom:-50px;right:-50px;" class="absolute rounded-full"></div>
+  </div>
 
-<!-- -------- main div background------- -->
-<div class="relative min-h-screen w-full bg-cover bg-center bg-no-repeat">
-  
-<!-- ---------graident------------ -->
-  <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, #1a1a1a 0%, #000000 100%)"></div>
-  
+  <div class="relative z-10 max-w-6xl mx-auto px-6 py-10">
 
-<!-- -------forces every other div relative to background---------  -->
-  <div class="relative z-10 min-h-screen  ">
-
-
-<!-- -----------location search -------- -->
-       <div  class="flex justify-center text-black gap-3">
-     <input id="city" type="text" class="h-10 px-4 border rounded-lg shadow-md outline-none focus:ring-2 focus:ring-blue-500 mt-10" placeholder="📍Location.....">
-     <button id="btn" type="submit"
-  class="h-10 px-4 border rounded-lg shadow-md outline-none focus:ring-2 text-white focus:ring-blue-500 mt-10 flex items-center justify-center">
-  <i class="fa-solid fa-magnifying-glass"></i>
-</button>
-     <p id="place" class="mt-12 text-white">friday</p>
+    <!-- search bar -->
+    <div class="flex items-center justify-center gap-3 mb-16 fade-up">
+      <div class="glass rounded-2xl flex items-center px-4 gap-3 w-full max-w-md">
+        <i class="fa-solid fa-location-dot text-blue-400 opacity-60"></i>
+        <input id="city" type="text"
+          class="bg-transparent h-12 w-full outline-none text-white text-sm"
+          placeholder="Search city...">
+      </div>
+      <button id="btn"
+        class="glass h-12 w-12 rounded-2xl flex items-center justify-center text-blue-400 hover:bg-blue-500 hover:text-white transition-all duration-200">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
     </div>
 
-<!-- -----------the main div of three---------- -->
-<div class="mt-20 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 m-10">
+    <!-- main grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
 
-    
-<!-- -----------left side writings----------     -->
-    <div class=" text-white p-6 ml-[100px]">
-        <h1 id="temp" class="text-[130px]"> 16<span class="text-3xl align-super">°C</span></h1>
-       <p  id="condition" class="text-[40px] font-light mt-[-40px]">Storm with Rain</p>
-       <div class="flex gap-20 mt-20">
-        <div>
-            <p>wind</p>
-            <p id="wind">2.4km/h</p>
+      <!-- LEFT: current weather -->
+      <div class="lg:col-span-2 fade-up delay-1">
+        <p id="place" class="text-blue-300 text-sm font-light tracking-widest uppercase mb-2 opacity-70">—</p>
+        <h1 id="temp" class="text-[110px] font-bold leading-none glow">
+          16<span class="text-4xl align-super font-light">°C</span>
+        </h1>
+        <p id="condition" class="text-3xl font-light text-white/70 mt-2 mb-10">Storm with Rain</p>
+
+        <!-- image -->
+        <div class="mb-10">
+          <img id="img" src="./images/thunder.png" class="w-64 sm:w-80 drop-shadow-2xl" alt="">
         </div>
-        <div>
-            <p>humidity</p>
-            <p id="humidity">70%</p>
+
+        <!-- stats -->
+        <div class="flex flex-wrap gap-4">
+          <div class="glass rounded-2xl px-6 py-4 flex items-center gap-4">
+            <i class="fa-solid fa-wind text-blue-400 text-xl"></i>
+            <div>
+              <p class="text-xs text-white/40 uppercase tracking-wider">Wind</p>
+              <p id="wind" class="text-lg font-semibold">2.4 km/h</p>
+            </div>
+          </div>
+          <div class="glass rounded-2xl px-6 py-4 flex items-center gap-4">
+            <i class="fa-solid fa-droplet text-blue-400 text-xl"></i>
+            <div>
+              <p class="text-xs text-white/40 uppercase tracking-wider">Humidity</p>
+              <p id="humidity" class="text-lg font-semibold">70%</p>
+            </div>
+          </div>
         </div>
-       </div>
+      </div>
+
+      <!-- RIGHT: 3-day forecast -->
+      <div class="glass rounded-3xl overflow-hidden fade-up delay-2">
+        <div class="px-6 pt-6 pb-2">
+          <p class="text-xs uppercase tracking-widest text-white/30 font-light">3-Day Forecast</p>
+        </div>
+
+        <!-- today -->
+        <div class="forecast-row px-6 py-5 flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <i class="fa-solid fa-cloud text-blue-400 w-5 text-center"></i>
+            <div>
+              <p id="today" class="text-base font-semibold">Monday <br>
+                <span id="todaycondtion" class="text-xs font-light text-white/40">good day</span>
+              </p>
+            </div>
+          </div>
+          <p id="todayhumidiy" class="text-sm text-white/50">70%</p>
+        </div>
+
+        <!-- tomorrow -->
+        <div class="forecast-row px-6 py-5 flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <i class="fa-solid fa-cloud text-blue-400 w-5 text-center"></i>
+            <div>
+              <p id="day2" class="text-base font-semibold">Tuesday <br>
+                <span id="day2condtion" class="text-xs font-light text-white/40">good day</span>
+              </p>
+            </div>
+          </div>
+          <p id="day2humidity" class="text-sm text-white/50">70%</p>
+        </div>
+
+        <!-- day after -->
+        <div class="forecast-row px-6 py-5 flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <i class="fa-solid fa-cloud text-blue-400 w-5 text-center"></i>
+            <div>
+              <p id="day3" class="text-base font-semibold">Wednesday <br>
+                <span id="day3condition" class="text-xs font-light text-white/40">good day</span>
+              </p>
+            </div>
+          </div>
+          <p id="day3humidity" class="text-sm text-white/50">70%</p>
+        </div>
+
+        <!-- sunrise sunset -->
+        <div class="flex justify-between px-6 py-4 border-t border-white/5">
+          <div class="flex items-center gap-3">
+            <i class="fa-solid fa-sun text-amber-300"></i>
+            <div>
+              <p class="text-xs text-white/40 uppercase tracking-wider">Sunrise</p>
+              <p id="sunrise" class="text-sm font-semibold">06:24 AM</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <i class="fa-solid fa-moon text-orange-300"></i>
+            <div>
+              <p class="text-xs text-white/40 uppercase tracking-wider">Sunset</p>
+              <p id="sunset" class="text-sm font-semibold">06:12 PM</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
     </div>
 
-<!-- ----------weather image------------- -->
-    <div class=" text-white p-6">
-        <img id="img" src="./images/thunder.png" class="w-100%" alt="">
-    </div>
 
-<!-- ----------showing weather of days---------- -->
-    <div class="ml-[30px]" >
+  </div>
 
-        <!-- ----------table background----------- -->
-            <div class="h-[400px] w-[300px] rounded-2xl p-12  bg-[radial-gradient(ellipse_at_center,_#2a2a2a_0%,_#0a0a0a_100%)] shadow-2xl border border-white/10">
-                       
-                    
-                 <!-- -----------content div--------------       -->
-                       <div class="flex text-white gap-8">
-                        <i class="fa-solid fa-cloud"></i>
-                        <p id="today" class="text-2xl">Monday <br>
-                              <span id="todaycondtion" class="inline-block text-sm font-thin -translate-y-[12px] opacity-60">good day</span>
-                        <p id="todayhumidiy" >180</p>
-
-                       </div>
-
-                       <!-- -----------content divs---------- -->
-
-                       <div class="flex text-white gap-8">
-                        <i class="fa-solid fa-cloud"></i>
-                        <p id="day2" class="text-2xl">Tuesday <br>
-                              <span id="day2condtion" class="inline-block text-sm font-thin -translate-y-[12px] opacity-60">good day</span>
-                        <p id="day2humidity" >180</p>
-
-                       </div>
-
-                       <!-- -----------content divs---------- -->
-
-                       <div class="flex text-white gap-8">
-                        <i class="fa-solid fa-cloud"></i>
-                        <p id="day3" class="text-2xl">Wednesday <br>
-                              <span id="day3condition" class="inline-block text-sm font-thin -translate-y-[12px] opacity-60">good day</span>
-                              </p>
-                        <p id="day3humidity" >180</p>
-
-                     </div>
-                 </div>
-
-
-            
-             </div>
-
-             
-        </div>
-   
-     </div>
-
-</div>
-
-
-
-<script src="./script.js"></script>
-
-
+  <script src="./script.js"></script>
 
 
 </body>

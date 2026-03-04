@@ -17,6 +17,8 @@ const day2humidity = document.getElementById("day2humidity")
 const day3 = document.getElementById("day3")
 const day3condition = document.getElementById("day3condition")
 const day3humidity = document.getElementById("day3humidity")
+const sunrise = document.getElementById("sunrise")
+const sunset = document.getElementById("sunset")
 
 
 //search funtion
@@ -35,8 +37,9 @@ const response = await fetch(
 
 
   //saving city name in local storage
-
   localStorage.setItem("lastCity", data.location.name);
+
+
   place.textContent = data.location.name
   temp.innerHTML = data.current.temp_c + '<span class="text-3xl align-super">°C</span>';
   condition.textContent = data.current.condition.text;
@@ -94,15 +97,16 @@ day2humidity.innerHTML = `${tomorrow.day.avghumidity}<span class="text-sm ">%</s
 
 //day after tommorow
 const dayaftm = data.forecast.forecastday[2];
-console.log(dayaftm)
-
 const thirdday = new Date(dayaftm.date).toLocaleDateString("en-US", {
   weekday: "long"
 });
-
 day3.firstChild.textContent = thirdday;
 day3condition.textContent = dayaftm.day.condition.text;
 day3humidity.innerHTML = `${dayaftm.day.avghumidity}<span class="text-sm ">%</span>`;
+
+//sunrise sunset
+sunrise.textContent = data.forecast.forecastday[0].astro.sunrise
+sunset.textContent =  data.forecast.forecastday[0].astro.sunset
   
 };
 
