@@ -19,6 +19,7 @@ const day3condition = document.getElementById("day3condition")
 const day3humidity = document.getElementById("day3humidity")
 const sunrise = document.getElementById("sunrise")
 const sunset = document.getElementById("sunset")
+const locationBtn = document.getElementById("locationBtn")
 
 
 //search funtion
@@ -111,21 +112,29 @@ sunset.textContent =  data.forecast.forecastday[0].astro.sunset
 };
 
 
-//automatically searches users location info by browser methods
+//searches for the location function
+function getLocation() {
+  navigator.geolocation.getCurrentPosition(async function(position) {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    cityInput.value = lat + "," + lon;
+    btn.click();
+    cityInput.value = "";
+  });
+}
+
+//automatically searches users location info by browser methods on page load
 window.onload = function() {
   const savedCity = localStorage.getItem("lastCity");
-
   if (savedCity) {
     cityInput.value = savedCity;
     btn.click();
     cityInput.value = "";
   } else {
-    navigator.geolocation.getCurrentPosition(async function(position) {
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-      cityInput.value = lat + "," + lon;
-      btn.click();
-      cityInput.value = "";
-    });
+    getLocation();
   }
 };
+
+//current location search
+locationBtn.addEventListener('click', getLocation);
+

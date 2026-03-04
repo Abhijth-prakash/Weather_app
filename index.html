@@ -37,7 +37,6 @@
     .delay-1 { animation-delay: 0.1s; opacity: 0; }
     .delay-2 { animation-delay: 0.2s; opacity: 0; }
     .delay-3 { animation-delay: 0.3s; opacity: 0; }
-
   </style>
 </head>
 <body class="min-h-screen text-white">
@@ -52,6 +51,10 @@
 
     <!-- search bar -->
     <div class="flex items-center justify-center gap-3 mb-16 fade-up">
+      <button id="locationBtn"
+        class="glass h-12 w-12 rounded-2xl flex items-center justify-center text-blue-400 hover:bg-blue-500 hover:text-white transition-all duration-200">
+        <i class="fa-solid fa-location-crosshairs"></i>
+      </button>
       <div class="glass rounded-2xl flex items-center px-4 gap-3 w-full max-w-md">
         <i class="fa-solid fa-location-dot text-blue-400 opacity-60"></i>
         <input id="city" type="text"
@@ -99,53 +102,57 @@
         </div>
       </div>
 
-      <!-- RIGHT: 3-day forecast -->
-      <div class="glass rounded-3xl overflow-hidden fade-up delay-2">
-        <div class="px-6 pt-6 pb-2">
-          <p class="text-xs uppercase tracking-widest text-white/30 font-light">3-Day Forecast</p>
-        </div>
+      <!-- RIGHT: 3-day forecast + sunrise/sunset -->
+      <div class="flex flex-col gap-4 fade-up delay-2">
 
-        <!-- today -->
-        <div class="forecast-row px-6 py-5 flex items-center justify-between">
-          <div class="flex items-center gap-4">
-            <i class="fa-solid fa-cloud text-blue-400 w-5 text-center"></i>
-            <div>
-              <p id="today" class="text-base font-semibold">Monday <br>
-                <span id="todaycondtion" class="text-xs font-light text-white/40">good day</span>
-              </p>
-            </div>
+        <!-- 3-day forecast -->
+        <div class="glass rounded-3xl overflow-hidden">
+          <div class="px-6 pt-6 pb-2">
+            <p class="text-xs uppercase tracking-widest text-white/30 font-light">3-Day Forecast</p>
           </div>
-          <p id="todayhumidiy" class="text-sm text-white/50">70%</p>
-        </div>
 
-        <!-- tomorrow -->
-        <div class="forecast-row px-6 py-5 flex items-center justify-between">
-          <div class="flex items-center gap-4">
-            <i class="fa-solid fa-cloud text-blue-400 w-5 text-center"></i>
-            <div>
-              <p id="day2" class="text-base font-semibold">Tuesday <br>
-                <span id="day2condtion" class="text-xs font-light text-white/40">good day</span>
-              </p>
+          <!-- today -->
+          <div class="forecast-row px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <i class="fa-solid fa-cloud text-blue-400 w-5 text-center"></i>
+              <div>
+                <p id="today" class="text-base font-semibold">Monday <br>
+                  <span id="todaycondtion" class="text-xs font-light text-white/40">good day</span>
+                </p>
+              </div>
             </div>
+            <p id="todayhumidiy" class="text-sm text-white/50">70%</p>
           </div>
-          <p id="day2humidity" class="text-sm text-white/50">70%</p>
-        </div>
 
-        <!-- day after -->
-        <div class="forecast-row px-6 py-5 flex items-center justify-between">
-          <div class="flex items-center gap-4">
-            <i class="fa-solid fa-cloud text-blue-400 w-5 text-center"></i>
-            <div>
-              <p id="day3" class="text-base font-semibold">Wednesday <br>
-                <span id="day3condition" class="text-xs font-light text-white/40">good day</span>
-              </p>
+          <!-- tomorrow -->
+          <div class="forecast-row px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <i class="fa-solid fa-cloud text-blue-400 w-5 text-center"></i>
+              <div>
+                <p id="day2" class="text-base font-semibold">Tuesday <br>
+                  <span id="day2condtion" class="text-xs font-light text-white/40">good day</span>
+                </p>
+              </div>
             </div>
+            <p id="day2humidity" class="text-sm text-white/50">70%</p>
           </div>
-          <p id="day3humidity" class="text-sm text-white/50">70%</p>
+
+          <!-- day after -->
+          <div class="forecast-row px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <i class="fa-solid fa-cloud text-blue-400 w-5 text-center"></i>
+              <div>
+                <p id="day3" class="text-base font-semibold">Wednesday <br>
+                  <span id="day3condition" class="text-xs font-light text-white/40">good day</span>
+                </p>
+              </div>
+            </div>
+            <p id="day3humidity" class="text-sm text-white/50">70%</p>
+          </div>
         </div>
 
-        <!-- sunrise sunset -->
-        <div class="flex justify-between px-6 py-4 border-t border-white/5">
+        <!-- sunrise / sunset -->
+        <div class="glass rounded-2xl flex justify-between px-6 py-4">
           <div class="flex items-center gap-3">
             <i class="fa-solid fa-sun text-amber-300"></i>
             <div>
@@ -166,11 +173,9 @@
 
     </div>
 
-
   </div>
 
   <script src="./script.js"></script>
-
 
 </body>
 </html>
