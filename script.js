@@ -32,10 +32,7 @@ const response = await fetch(
   "https://api.weatherapi.com/v1/forecast.json?key=" + apiKey + "&q=" + city + "&days=3"
 );
 
-
-
   const data = await response.json();
-
 
   //saving city name in local storage
   localStorage.setItem("lastCity", data.location.name);

@@ -19,6 +19,11 @@ A simple weather app that shows current weather and a 3-day forecast for any cit
 - Font Awesome icons
 - [WeatherAPI](https://www.weatherapi.com/)
 
+
+## Live Demo
+
+[View Live](https://weather-app-vert-theta-83.vercel.app/)
+
 ## Setup
 
 1. Clone the repo
